@@ -12,11 +12,11 @@ st.write("Navigating elections can be confusing. Let us help you figure out your
 
 # Accessibility info in sidebar
 with st.sidebar:
-    st.header("About VoteEasy")
-    st.write("VoteEasy uses Artificial Intelligence to help you understand voting procedures.")
+    st.header("About VoteEasy", anchor="about")
+    st.markdown("<p aria-label='Description of VoteEasy'>VoteEasy uses Artificial Intelligence to help you understand voting procedures.</p>", unsafe_allow_html=True)
     st.markdown("**Accessibility Features:**")
-    st.write("- Screen reader friendly layouts")
-    st.write("- Keyboard navigable forms")
+    st.write("- Screen reader friendly layouts (HTML5 Semantics)")
+    st.write("- Keyboard navigable forms (Enter to Submit)")
     st.write("- High contrast styling enabled via config")
 
 # Efficient Caching to limit unnecessary API hits

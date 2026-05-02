@@ -1,5 +1,8 @@
 import requests
+import logging
 from backend.utils.config import settings
+
+logger = logging.getLogger(__name__)
 
 def get_civic_data(location: str) -> str:
     """
@@ -52,5 +55,5 @@ def get_civic_data(location: str) -> str:
         return "No specific local polling data found in Civic API."
         
     except requests.exceptions.RequestException as e:
-        print(f"Error calling Civic API: {e}")
+        logger.error(f"Error calling Civic API: {e}")
         return "Civic data unavailable due to network."

@@ -1,17 +1,20 @@
+import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.routes.ask import router as ask_router
 from backend.services.rag_pipeline import build_index
 from contextlib import asynccontextmanager
 
+logger = logging.getLogger(__name__)
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup behavior: Build/ensure FAISS index exists
-    print("Initializing FAISS index and mock data on startup...")
+    logger.info("Initializing FAISS index and mock data on startup...")
     build_index()
     yield
     # Shutdown behavior
-    print("Shutting down VoteEasy API...")
+    logger.info("Shutting down VoteEasy API...")
 
 app = FastAPI(
     title="VoteEasy API",

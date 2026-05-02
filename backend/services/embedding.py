@@ -1,32 +1,30 @@
-import requests
+import logging
+import google.generativeai as genai
 from backend.utils.config import settings
-
 from typing import List
+
+logger = logging.getLogger(__name__)
 
 def get_embedding(text: str) -> List[float]:
     """
-    Generates an embedding for a given text using Google's generative AI (REST API).
-    This avoids Python version conflicts with the google-generativeai SDK.
+    Generates an embedding for a given text using Google's generative AI SDK.
+    Provides a safe fallback to prevent application crashes on API restrictions.
     """
     if not settings.gemini_api_key or settings.gemini_api_key == "placeholder_if_not_set":
         return [0.0] * 768
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key={settings.gemini_api_key}"
-    payload = {
-        "model": "models/text-embedding-004",
-        "content": {"parts": [{"text": text}]}
-    }
-    
     try:
-        response = requests.post(url, json=payload, timeout=10)
-        response.raise_for_status()
-        data = response.json()
-        return data["embedding"]["values"]
+        genai.configure(api_key=settings.gemini_api_key)
+        # Using text-embedding-004 model natively
+        result = genai.embed_content(
+            model="models/text-embedding-004",
+            content=text
+        )
+        return result['embedding']
     except Exception as e:
-        # Check if it's an API Key restriction (403)
         if "403" in str(e):
-            print(f"⚠️ Warning: Your Gemini API Key is restricted or invalid for text-embedding. Using safe mock embeddings instead.")
+            logger.warning("Gemini API Key restricted. Using safe mock embeddings.")
         else:
-            print(f"Error generating embedding via REST: {e}. Using safe mock embeddings.")
+            logger.error(f"Embedding error: {e}. Using safe mock embeddings.")
         # Return a zero vector as fallback
         return [0.0] * 768

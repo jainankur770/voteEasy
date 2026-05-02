@@ -1,6 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 DATA_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "data", "raw_text.txt")
 
@@ -16,7 +19,7 @@ def scrape_and_save(urls: list = VOTING_URLS) -> str:
     
     for url in urls:
         try:
-            print(f"Scraping {url}...")
+            logger.info(f"Scraping {url}...")
             response = requests.get(url, timeout=10)
             response.raise_for_status()
             soup = BeautifulSoup(response.content, "html.parser")
@@ -29,7 +32,7 @@ def scrape_and_save(urls: list = VOTING_URLS) -> str:
                 all_text.append(f"SOURCE: {url}\n{text_content}")
                 
         except Exception as e:
-            print(f"Failed to scrape {url}: {e}")
+            logger.error(f"Failed to scrape {url}: {e}")
 
     if not all_text:
         # Fallback to default mock data if all scraping fails

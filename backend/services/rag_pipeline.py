@@ -2,9 +2,12 @@ import os
 import json
 import faiss
 import numpy as np
+import logging
 from typing import List
 from backend.services.scraper import load_data
 from backend.services.embedding import get_embedding
+
+logger = logging.getLogger(__name__)
 
 INDEX_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "vectorstore", "faiss_index", "index.faiss")
 CHUNKS_PATH = os.path.join(os.path.dirname(INDEX_PATH), "chunks.json")
@@ -37,7 +40,7 @@ def build_index() -> faiss.Index:
                 for faq in faqs:
                     all_chunks.append(f"Q: {faq['question']}\nA: {faq['answer']}")
         except Exception as e:
-            print(f"Error loading FAQ data: {e}")
+            logger.error(f"Error loading FAQ data: {e}")
 
     dimension = 768 # Google's text-embedding-004 dimension
     index = faiss.IndexFlatL2(dimension)
@@ -45,7 +48,7 @@ def build_index() -> faiss.Index:
     embeddings = []
     valid_chunks = []
     
-    print(f"Building index with {len(all_chunks)} chunks...")
+    logger.info(f"Building index with {len(all_chunks)} chunks...")
     for chunk in all_chunks:
         if not chunk.strip():
             continue
@@ -64,7 +67,7 @@ def build_index() -> faiss.Index:
         with open(CHUNKS_PATH, "w", encoding="utf-8") as f:
             json.dump(valid_chunks, f)
             
-        print(f"Index built and saved with {len(valid_chunks)} valid embeddings.")
+        logger.info(f"Index built and saved with {len(valid_chunks)} valid embeddings.")
         return index
     
     return faiss.IndexFlatL2(dimension)
