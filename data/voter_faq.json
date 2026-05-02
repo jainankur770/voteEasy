@@ -1,0 +1,30 @@
+[
+    {
+        "question": "How do I register to vote in India?",
+        "answer": "You can register to vote online through the Voter's Service Portal (voters.eci.gov.in) by filling out Form 6. You can also register offline by submitting Form 6 to the Electoral Registration Officer (ERO) of your assembly constituency."
+    },
+    {
+        "question": "What is the age limit to vote in India?",
+        "answer": "You must be 18 years of age or older on the qualifying date (usually January 1st, April 1st, July 1st, or October 1st of the year) to be eligible to vote."
+    },
+    {
+        "question": "Do I need a Voter ID (EPIC) to vote?",
+        "answer": "While the Electors Photo Identity Card (EPIC) is the primary document, if your name is on the electoral roll, you can still vote using alternative approved photo identity documents like an Aadhaar Card, PAN Card, Driving License, or Passport."
+    },
+    {
+        "question": "How can I check if my name is on the voter list?",
+        "answer": "You can check your name on the electoral roll online at the Electoral Search portal (electoralsearch.eci.gov.in) by entering your EPIC number or personal details."
+    },
+    {
+        "question": "What is a polling booth and how do I find mine?",
+        "answer": "A polling booth is where you cast your vote. You can find your designated polling booth online using the Voter Helpline App or the ECI's Know Your Polling Station website."
+    },
+    {
+        "question": "Can NRIs (Non-Resident Indians) vote?",
+        "answer": "Yes, NRIs can vote. They must register using Form 6A. However, they must be physically present at their designated polling booth in India to cast their vote, as e-voting or postal ballots for NRIs are not currently standard practice."
+    },
+    {
+        "question": "What is the NOTA option?",
+        "answer": "NOTA stands for 'None of the Above'. It is an option on the EVM (Electronic Voting Machine) that allows a voter to officially register a vote of rejection for all contesting candidates."
+    }
+]

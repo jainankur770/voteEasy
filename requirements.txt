@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+streamlit
+requests
+beautifulsoup4
+faiss-cpu
+python-dotenv
+pydantic
+pydantic-settings
+pytest
+httpx
